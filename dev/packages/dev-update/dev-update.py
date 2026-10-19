@@ -22,6 +22,8 @@ def main():
     }
 
     version = run(CRANE, "ls", repository).decode().strip().splitlines()[-1]
+    print(version)
+
     manifests = json.loads(
         run(CRANE, "manifest", f"{repository}:{version}")
     )["manifests"]
@@ -38,6 +40,8 @@ def main():
             system = systems.get(platform["architecture"])
             if system is None:
                 continue
+            print(system)
+            
             digest = manifest["digest"]
             rootfs = tempDirectory / "rootfs.tar"
             rootfs.write_bytes(run(CRANE, "export", f"{repository}@{digest}"))
