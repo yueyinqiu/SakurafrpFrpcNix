@@ -5,8 +5,10 @@ import tempfile
 
 CRANE = "@CRANE@"  # noqa: E501
 
+
 def run(*command) -> bytes:
     return subprocess.run(command, capture_output=True, check=True).stdout
+
 
 def main():
     repository = "ghcr.io/natfrp/frpc"
@@ -20,13 +22,19 @@ def main():
     }
 
     version = run(CRANE, "ls", repository).decode().strip().splitlines()[-1]
-    manifests = json.loads(run(CRANE, "manifest", f"{repository}:{version}"))["manifests"]
+    manifests = json.loads(
+        run(CRANE, "manifest", f"{repository}:{version}")
+    )["manifests"]
 
     result = {}
-    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tempDirectoryPath:
+    with tempfile.TemporaryDirectory(
+        ignore_cleanup_errors=True
+    ) as tempDirectoryPath:
         tempDirectory = Path(tempDirectoryPath)
         for manifest in manifests:
             platform = manifest["platform"]
+            if platform["os"] != "linux":
+                continue
             system = systems.get(platform["architecture"])
             if system is None:
                 continue
@@ -44,6 +52,7 @@ def main():
 
     with open("package/sources.json", "w") as f:
         json.dump(result, f, indent=2)
+
 
 if __name__ == "__main__":
     main()
