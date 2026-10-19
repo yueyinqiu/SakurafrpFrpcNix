@@ -31,13 +31,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
+
     mkdir -p "$out/bin"
-    jq -r '.[0].Layers[]' manifest.json | while IFS= read -r layer; do
-      if tar -tf "$layer" 2>/dev/null | grep -qx 'frpc'; then
-        tar -xf "$layer" -C "$out/bin" frpc && break
-      fi
-    done
+
+    layer1=$(jq -r '.[0].Layers[1]' manifest.json)
+    tar -xf "$layer1" -C "$out/bin" frpc
+
     chmod +x "$out/bin/frpc"
+
     runHook postInstall
   '';
 
@@ -47,7 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SakuraFrp frpc client (proprietary fork of fatedier/frp)";
     homepage = "https://www.natfrp.com/";
     license = licenses.unfree;
-    unfreeRedistributable = true;
     mainProgram = "frpc";
     platforms = builtins.attrNames sources.architectures;
     maintainers = [ ];
