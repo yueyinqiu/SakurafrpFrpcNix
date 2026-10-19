@@ -9,7 +9,6 @@ let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
   source = sources.architectures.${stdenv.hostPlatform.system};
 
-  # Flatten the image to a rootfs tarball via crane export (fixed-output).
   rootfs = runCommand "frpc-rootfs-${source.version}.tar" {
     nativeBuildInputs = [ crane ];
     outputHashAlgo = "sha256";
