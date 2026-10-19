@@ -19,7 +19,7 @@ The binary is not fetched from the official download page (which requires a logi
 The binary is exposed as `frpc`:
 
 ```nix
-sakurafrp-frpc.packages.${system}.natfrp-frpc
+sakurafrp-frpc.packages.${system}.frpc
 ```
 
 Or try it directly from the CLI:

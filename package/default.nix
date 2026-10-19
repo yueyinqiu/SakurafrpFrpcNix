@@ -59,7 +59,7 @@ let
   };
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "natfrp-frpc";
+  pname = "frpc";
   inherit version;
 
   # pullImage produces a docker-archive .tar, unpacked automatically by unpackPhase.
