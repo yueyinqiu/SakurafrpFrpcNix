@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.natfrp.com/";
     license = licenses.unfree;
     mainProgram = "frpc";
-    platforms = builtins.attrNames sources.architectures;
+    platforms = builtins.attrNames sources;
     maintainers = [ ];
   };
 })
