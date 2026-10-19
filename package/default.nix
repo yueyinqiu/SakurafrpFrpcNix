@@ -12,11 +12,9 @@ let
   image = dockerTools.pullImage {
     imageName = "ghcr.io/natfrp/frpc";
     imageDigest = source.manifestDigest;
-    finalImageName = "natfrp-frpc";
     finalImageTag = source.version;
-    os = "linux";
-    outputHash = source.outputHash;
     outputHashAlgo = "sha256";
+    outputHash = source.outputHash;
   };
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -25,16 +23,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = image;
   sourceRoot = ".";
-
-  nativeBuildInputs = [ jq ];
-
+  
   dontConfigure = true;
   dontBuild = true;
+
+  nativeBuildInputs = [ jq ];
 
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/bin"
-    # manifest.json's Layers field lists each layer tar in order; find the one with frpc
     jq -r '.[0].Layers[]' manifest.json | while IFS= read -r layer; do
       if tar -tf "$layer" 2>/dev/null | grep -qx 'frpc'; then
         tar -xf "$layer" -C "$out/bin" frpc && break
@@ -50,8 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SakuraFrp frpc client (proprietary fork of fatedier/frp)";
     homepage = "https://www.natfrp.com/";
     license = licenses.unfree;
-    # No redistribution is granted by upstream, so the output must not be pushed to
-    # a public binary cache.
     unfreeRedistributable = true;
     mainProgram = "frpc";
     platforms = builtins.attrNames sources.architectures;
