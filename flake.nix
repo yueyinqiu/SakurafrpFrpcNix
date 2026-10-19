@@ -11,16 +11,7 @@
       nixpkgs,
     }:
     let
-      # The frpc Docker image only covers these Linux architectures (no MIPS).
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "armv7l-linux"
-        "i686-linux"
-        "riscv64-linux"
-        "loongarch64-linux"
-      ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
     {
       packages = forAllSystems (
@@ -29,9 +20,14 @@
           package = nixpkgs.legacyPackages.${system}.callPackage ./package { };
         in
         {
-          natfrp-frpc = package;
+          frpc = package;
           default = package;
         }
       );
+      devShells = forAllSystems (system: {
+        default = import ./dev {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
+      });
     };
 }
