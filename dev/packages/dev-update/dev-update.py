@@ -41,7 +41,7 @@ def main():
             if system is None:
                 continue
             print(system)
-            
+
             digest = manifest["digest"]
             rootfs = tempDirectory / "rootfs.tar"
             rootfs.write_bytes(run(CRANE, "export", f"{repository}@{digest}"))
