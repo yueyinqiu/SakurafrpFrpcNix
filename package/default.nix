@@ -1,44 +1,38 @@
 {
   lib,
   stdenv,
-  dockerTools,
-  jq,
+  runCommand,
+  crane,
 }:
 
 let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
   source = sources.architectures.${stdenv.hostPlatform.system};
 
-  image = dockerTools.pullImage {
-    imageName = "ghcr.io/natfrp/frpc";
-    imageDigest = source.manifestDigest;
-    finalImageTag = source.version;
+  # Flatten the image to a rootfs tarball via crane export (fixed-output).
+  rootfs = runCommand "frpc-rootfs-${source.version}.tar" {
+    nativeBuildInputs = [ crane ];
     outputHashAlgo = "sha256";
+    outputHashMode = "flat";
     outputHash = source.outputHash;
-  };
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+  } ''
+    crane export "ghcr.io/natfrp/frpc@${source.manifestDigest}" > "$out"
+  '';
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "frpc";
   version = source.version;
 
-  src = image;
+  src = rootfs;
   sourceRoot = ".";
-  
+
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ jq ];
-
   installPhase = ''
     runHook preInstall
-
-    mkdir -p "$out/bin"
-
-    layer1=$(jq -r '.[0].Layers[1]' manifest.json)
-    tar -xf "$layer1" -C "$out/bin" frpc
-
-    chmod +x "$out/bin/frpc"
-
+    install -Dm755 frpc "$out/bin/frpc"
     runHook postInstall
   '';
 

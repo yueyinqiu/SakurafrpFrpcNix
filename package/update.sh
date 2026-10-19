@@ -4,7 +4,7 @@ set -euo pipefail
 # Update package/sources.json with the latest (or a given) frpc version: per-arch
 # manifest digests and output hashes.
 #
-# Dependencies: curl, jq, skopeo, nix
+# Dependencies: curl, jq, crane, nix
 # Usage: ./update.sh [version]
 
 cd "$(dirname "$0")"
@@ -48,8 +48,8 @@ declare -A system_of=(
   [loong64]=loongarch64-linux
 )
 
-# 3. Compute the per-arch output hash, replicating dockerTools.pullImage's skopeo
-#    invocation. Deterministic order for a stable diff.
+# 3. Compute the per-arch output hash of the flattened rootfs (crane export).
+#    Deterministic order for a stable diff.
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 
@@ -59,10 +59,7 @@ for oci in amd64 arm64 arm 386 riscv64 loong64; do
   digest=${manifest_of[$oci]:-}
   [[ -n $system && -n $digest ]] || continue
 
-  skopeo --insecure-policy --override-os linux --override-arch "$oci" \
-    copy --src-tls-verify=true \
-    "docker://ghcr.io/natfrp/frpc@$digest" \
-    "docker-archive:$tmp/out.tar:natfrp-frpc:$version" >/dev/null
+  crane export "ghcr.io/natfrp/frpc@$digest" > "$tmp/out.tar"
   hash=$(nix hash file --type sha256 --sri "$tmp/out.tar")
   architectures=$(
     jq --arg s "$system" --arg d "$digest" --arg h "$hash" --arg v "$version" \
