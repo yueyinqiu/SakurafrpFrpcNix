@@ -24,5 +24,10 @@
           default = package;
         }
       );
+      devShells = forAllSystems (system: {
+        default = import ./dev {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
+      });
     };
 }
