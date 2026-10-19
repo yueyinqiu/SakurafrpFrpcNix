@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "SakuraFrp frpc client (proprietary fork of fatedier/frp)";
+    description = "SakuraFrp frpc client";
     homepage = "https://www.natfrp.com/";
     license = licenses.unfree;
     mainProgram = "frpc";
