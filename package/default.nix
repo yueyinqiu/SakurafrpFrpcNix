@@ -7,7 +7,7 @@
 
 let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
-  source = sources.architectures.${stdenv.hostPlatform.system};
+  source = sources.${stdenv.hostPlatform.system};
 
   rootfs = runCommand "frpc-rootfs-${source.version}.tar" {
     nativeBuildInputs = [ crane ];
