@@ -35,8 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = ./update.sh;
-
   meta = with lib; {
     description = "SakuraFrp frpc client";
     homepage = "https://www.natfrp.com/";
