@@ -17,7 +17,11 @@
       packages = forAllSystems (
         system:
         let
-          package = nixpkgs.legacyPackages.${system}.callPackage ./package { };
+          pkgs = import nixpkgs {
+            system = system;
+            config.allowUnfree = true;
+          };
+          package = pkgs.callPackage ./package { };
         in
         {
           frpc = package;
