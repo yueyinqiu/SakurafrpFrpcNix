@@ -1,32 +1,32 @@
 {
   "x86_64-linux": {
-    "version": "0.51.0-sakura-15",
-    "manifestDigest": "sha256:7e5d8f8382c13fe285de887963c1e12780520a8b6376f258a0092edceeed2172",
-    "outputHash": "sha256-A4OCWBOQ2g9AM7U6mBavz0CjI62QKrorG6P1iWd4reM="
+    "version": "0.51.0-sakura-15.1",
+    "manifestDigest": "sha256:afbcb211ccdf2fc46aad7593e22b946389d6974e68c2abfd2ba5b9487163cc4f",
+    "outputHash": "sha256-R4L8LwtwO9JQrDOVKkQb4bwba9HNkWosWl258ObhqwE="
   },
   "aarch64-linux": {
-    "version": "0.51.0-sakura-15",
-    "manifestDigest": "sha256:5794d8a4008bef2953ff346f9adeb55a0ff2ff11450ad0e62beeccbfae8b8605",
-    "outputHash": "sha256-5sjydqM/CqHCtWt1981m9nrOSpzc/7eVw4Ig8B7qE6k="
+    "version": "0.51.0-sakura-15.1",
+    "manifestDigest": "sha256:af3d2433ec6c395cca1a4874686644324df8de2882451f32956557c38292e3cd",
+    "outputHash": "sha256-VBHKl6ZWxemLxrOoY0W9K25tk1N5rxRPBO8bY5KLxR0="
   },
   "armv7l-linux": {
-    "version": "0.51.0-sakura-15",
-    "manifestDigest": "sha256:b8d656bfc2e9521d0c867da0184c416c4526c611a3b5e46479dd9254df9553c9",
-    "outputHash": "sha256-km0G1MSJjfqtQ43uE3RmvzdvpiryMBcVCI5sK5G9qKc="
+    "version": "0.51.0-sakura-15.1",
+    "manifestDigest": "sha256:bfbb4d62e4e31b46d5d37bb226ca413c8614f7e9c4318ff483f0f80a43620444",
+    "outputHash": "sha256-ejbZyWZ5w2maIC0PMSzgBfQJT94cHF6SbmF57sWC2eE="
   },
   "i686-linux": {
-    "version": "0.51.0-sakura-15",
-    "manifestDigest": "sha256:e1d8fde7c27b4194ab3eff0bc89b33e6d91e296f302baad7b8af87b63a9ca722",
-    "outputHash": "sha256-Hg+C9e3qw7AHI9dQQEu+qOxlbGWakdynp7z9ruPBPIw="
+    "version": "0.51.0-sakura-15.1",
+    "manifestDigest": "sha256:2111939f27960bfcd808fe0c0a6e1fa6744915735b7b1bf8fee95399a67f024f",
+    "outputHash": "sha256-2Ddv6NittoSAvH0NOc7W6XH49AORkZ9j6dYx8z74X2U="
   },
   "riscv64-linux": {
-    "version": "0.51.0-sakura-15",
-    "manifestDigest": "sha256:482469fa63d2eb4a06f81cd86ef727c231e9a3cfb1a46040e95ab40d8ff805de",
-    "outputHash": "sha256-mKbO5XVdajVQXftkL8yCRYy1VY0ELEV1l5a4iGBjJoo="
+    "version": "0.51.0-sakura-15.1",
+    "manifestDigest": "sha256:8cf6d8f9fc18314dbaf99710874ed801a944ba0c14baea458c457d8caaca9c11",
+    "outputHash": "sha256-oa33hBNjFLmXvk6+jVd1Mh3bDScA3nGojfyUs7y9Vzs="
   },
   "loongarch64-linux": {
-    "version": "0.51.0-sakura-15",
-    "manifestDigest": "sha256:a062bc195dd63c9fe0187923037ad6a0c6cb6a48edd62fa6f43fe76681de312f",
-    "outputHash": "sha256-DjRvKQjopixPU6SamWzgW1bXq/TkqgpiCo5Co24AcnE="
+    "version": "0.51.0-sakura-15.1",
+    "manifestDigest": "sha256:15a6e80b37ffa731264aef863e0cb45274c1b638a74fad6db5cbf37860acefde",
+    "outputHash": "sha256-owDamnt7ZR8p+jA0uVZfXpP4lnEYvv4FENYkW0OCxX4="
   }
 }
