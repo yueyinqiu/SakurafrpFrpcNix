@@ -25,8 +25,12 @@ sakurafrp-frpc.packages.${system}.frpc
 Or try it directly from the CLI:
 
 ```console
-$ NIXPKGS_ALLOW_UNFREE=1 nix run --impure github:yueyinqiu/SakurafrpFrpcNix -- -V
+$ nix run github:yueyinqiu/SakurafrpFrpcNix -- -V
 ```
+
+The upstream binary is proprietary, so `frpc` carries `license = unfree`.
+This flake already evaluates it inside a nixpkgs with `allowUnfree = true`,
+so consumers don't need to set anything themselves.
 
 ---
 
